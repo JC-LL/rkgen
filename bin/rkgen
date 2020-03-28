@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/rkgen'
+RKGEN::Runner.run(*ARGV)

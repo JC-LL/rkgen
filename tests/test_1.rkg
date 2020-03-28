@@ -1,0 +1,10 @@
+# list of classes and attributes
+# attributes envisioned as Array should end with 'S' (upcase)
+# e.g : childrenS
+
+- root:
+  - elementS
+
+- entity:
+  - genericS
+  - portS
