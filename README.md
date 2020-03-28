@@ -1,0 +1,2 @@
+# rkgen
+Ruby Class Generator
