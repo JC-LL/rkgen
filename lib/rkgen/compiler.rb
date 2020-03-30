@@ -1,5 +1,6 @@
 require 'yaml'
 require_relative 'code'
+require_relative 'open_classes'
 
 module RKGEN
   class Compiler
@@ -10,7 +11,7 @@ module RKGEN
 
     def compile filename
       puts "=> compiling #{filename}"
-      @module_name=File.basename(filename,'.rkg').capitalize
+      @module_name=File.basename(filename,'.rkg').capitalize_first
       puts "=> module name is #{@module_name}"
       @spec = YAML.load_file(filename)
       #puts @spec.inspect
@@ -26,6 +27,7 @@ module RKGEN
       code << "# #{'='*60}"
       code.newline
       code << "module #{@module_name}"
+      code.newline
       code.indent=2
       code << generate_classes
       code.indent=0
@@ -52,7 +54,7 @@ module RKGEN
       @spec.each do |klass_h|
         klass_name,attributes=klass_h.first
         code.newline
-        code << "class #{name=klass_name.capitalize} < AstNode"
+        code << "class #{name=klass_name.capitalize_first} < AstNode"
         code.indent=2
         attr_decls=attributes.map{|a| ad=a.downcase ; ":#{ad}"}.join(',')
         code << "attr_accessor #{attr_decls}"
