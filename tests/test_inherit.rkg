@@ -1,0 +1,23 @@
+# dont forget the ':' after inheritance
+# dont forget dummy attributes in case
+
+- scene:
+  - entityS
+
+- entity:
+  - position
+  - speed
+  - direction
+
+- vector:
+  - x
+  - y
+
+- position < vector:
+  - dummy
+
+- speed < vector:
+  - dummy
+
+- direction < vector:
+  - dummy

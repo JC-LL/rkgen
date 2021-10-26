@@ -14,7 +14,7 @@ module RKGEN
       @module_name=File.basename(filename,'.rkg').capitalize_first
       puts "=> module name is #{@module_name}"
       @spec = YAML.load_file(filename)
-      #puts @spec.inspect
+      @spec.inspect
       generate
       generate_visitor
     end
@@ -54,9 +54,12 @@ module RKGEN
       code << "end"
       @spec.each do |klass_h|
         klass_name,attributes=klass_h.first
+        klass_name, inheritance=klass_name.split("<").map(&:strip).map(&:capitalize)
+        inheritance||="AstNode"
         code.newline
-        code << "class #{name=klass_name.capitalize_first} < AstNode"
+        code << "class #{name=klass_name.capitalize_first} < #{inheritance}"
         code.indent=2
+
         attr_decls=attributes.map{|a| ad=a.downcase ; ":#{ad}"}.join(',')
         code << "attr_accessor #{attr_decls}"
         params=attributes.map{|a|
